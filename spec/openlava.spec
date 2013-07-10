@@ -30,13 +30,15 @@
 %define _mandir %{_sharedir}/man
 %define _logdir %{_openlavatop}/log
 %define _includedir %{_openlavatop}/include
-%define _etcdir %{_openlavatop}/etc
+%define _etcdir %{_openlavatop}/etc-template
 %define _workdir %{_openlavatop}/work
+# the following will be symlinked to %{_openlavatop}/etc
+%define _etcdirsh /wga/scr4/openlava/etc
 
-Summary: openlava Distributed Batch Scheduler
-Name: openlava
+Summary: openlava Distributed Batch Scheduler (Broad COMPRD MODIFIED)
+Name: openlava-broad-comprd
 Version: 2.0
-Release: 1
+Release: 1comprd
 License: GPLv2
 Group: Applications/Productivity
 Vendor: openlava foundation
@@ -242,6 +244,9 @@ ln -sf %{_bindir}/bkill  $RPM_BUILD_ROOT%{_bindir}/bstop
 ln -sf %{_bindir}/bkill  $RPM_BUILD_ROOT%{_bindir}/bresume
 ln -sf %{_bindir}/bkill  $RPM_BUILD_ROOT%{_bindir}/bchkpnt
 ln -sf %{_bindir}/bmgroup  $RPM_BUILD_ROOT%{_bindir}/bugroup
+
+# comprd change to use a shared open-lava directory
+ln -sf %{_etcdirsh} %{_openlavatop}/etc
 
 install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.sh $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.csh $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
