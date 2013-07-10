@@ -26,10 +26,12 @@
 %define _libdir %{_openlavatop}/lib
 %define _bindir %{_openlavatop}/bin
 %define _sbindir %{_openlavatop}/sbin
-%define _mandir %{_openlavatop}/share/man
+%define _sharedir %{_openlavatop}/share
+%define _mandir %{_sharedir}/man
 %define _logdir %{_openlavatop}/log
 %define _includedir %{_openlavatop}/include
 %define _etcdir %{_openlavatop}/etc
+%define _workdir %{_openlavatop}/work
 
 Summary: openlava Distributed Batch Scheduler
 Name: openlava
@@ -89,157 +91,157 @@ make
 # install directories and files
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 install -d $RPM_BUILD_ROOT%{_sysconfdir}/init.d
-install -d $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -d $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -d $RPM_BUILD_ROOT%{_openlavatop}/include
-install -d $RPM_BUILD_ROOT%{_openlavatop}/lib
-install -d $RPM_BUILD_ROOT%{_openlavatop}/log
-install -d $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -d $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -d $RPM_BUILD_ROOT%{_openlavatop}/share/man/man3
-install -d $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -d $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -d $RPM_BUILD_ROOT%{_openlavatop}/work/logdir
+install -d $RPM_BUILD_ROOT%{_bindir}
+install -d $RPM_BUILD_ROOT%{_etcdir}
+install -d $RPM_BUILD_ROOT%{_includedir}
+install -d $RPM_BUILD_ROOT%{_libdir}
+install -d $RPM_BUILD_ROOT%{_logdir}
+install -d $RPM_BUILD_ROOT%{_sbindir}
+install -d $RPM_BUILD_ROOT%{_mandir}/man1
+install -d $RPM_BUILD_ROOT%{_mandir}/man3
+install -d $RPM_BUILD_ROOT%{_mandir}/man5
+install -d $RPM_BUILD_ROOT%{_mandir}/man8
+install -d $RPM_BUILD_ROOT%{_workdir}/logdir
 
 # in openlava root
 install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/COPYING  $RPM_BUILD_ROOT%{_openlavatop}
 install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/README  $RPM_BUILD_ROOT%{_openlavatop}
 
 # bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/badmin  $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bbot    $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/bhist/bhist   $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bhosts  $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bjobs   $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bkill   $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bmgroup $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bmig    $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bmod    $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bparams $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bpeek   $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bqueues $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/brequeue $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/brestart $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/brun     $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bsub     $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bswitch  $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/btop     $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/busers   $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/lam-mpirun $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsacct     $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lsadm/lsadmin    $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lseligible $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lshosts    $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsid       $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsinfo     $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsload     $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsloadadj  $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsmon      $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsplace    $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsrcp      $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsrun      $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsaddhost  $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsrmhost   $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/mpich2-mpiexec $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/mpich-mpirun   $RPM_BUILD_ROOT%{_openlavatop}/bin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/openmpi-mpirun $RPM_BUILD_ROOT%{_openlavatop}/bin
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/badmin  $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bbot    $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/bhist/bhist   $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bhosts  $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bjobs   $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bkill   $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bmgroup $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bmig    $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bmod    $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bparams $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bpeek   $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bqueues $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/brequeue $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/brestart $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/brun     $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bsub     $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/bswitch  $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/btop     $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/cmd/busers   $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/lam-mpirun $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsacct     $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lsadm/lsadmin    $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lseligible $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lshosts    $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsid       $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsinfo     $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsload     $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsloadadj  $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsmon      $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsplace    $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsrcp      $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsrun      $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsaddhost  $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lstools/lsrmhost   $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/mpich2-mpiexec $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/mpich-mpirun   $RPM_BUILD_ROOT%{_bindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/scripts/openmpi-mpirun $RPM_BUILD_ROOT%{_bindir}
 
 # etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.cluster.openlava $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.conf $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.task $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.shared $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.params $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.queues $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.hosts $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.users $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.setup $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.sh $RPM_BUILD_ROOT%{_openlavatop}/etc
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.csh $RPM_BUILD_ROOT%{_openlavatop}/etc
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.cluster.openlava $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.conf $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.task $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsf.shared $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.params $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.queues $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.hosts $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/lsb.users $RPM_BUILD_ROOT%{_etcdir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.setup $RPM_BUILD_ROOT%{_etcdir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava $RPM_BUILD_ROOT%{_etcdir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.sh $RPM_BUILD_ROOT%{_etcdir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.csh $RPM_BUILD_ROOT%{_etcdir}
 
 # include
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lsf.h $RPM_BUILD_ROOT%{_openlavatop}/include
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/lsbatch.h $RPM_BUILD_ROOT%{_openlavatop}/include
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lsf.h $RPM_BUILD_ROOT%{_includedir}
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/lsbatch.h $RPM_BUILD_ROOT%{_includedir}
 
 # lib
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lib/liblsf.a  $RPM_BUILD_ROOT%{_openlavatop}/lib
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/lib/liblsbatch.a  $RPM_BUILD_ROOT%{_openlavatop}/lib
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lib/liblsf.a $RPM_BUILD_ROOT%{_libdir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/lib/liblsbatch.a  $RPM_BUILD_ROOT%{_libdir}
 
 # sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/eauth/eauth  $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lim/lim  $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/daemons/mbatchd  $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/res/nios  $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/pim/pim  $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/res/res $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/daemons/sbatchd $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/chkpnt/echkpnt          $RPM_BUILD_ROOT%{_openlavatop}/sbin
-install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/chkpnt/erestart         $RPM_BUILD_ROOT%{_openlavatop}/sbin
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/eauth/eauth  $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/lim/lim  $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/daemons/mbatchd  $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/res/nios  $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/pim/pim  $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsf/res/res $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/daemons/sbatchd $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/chkpnt/echkpnt          $RPM_BUILD_ROOT%{_sbindir}
+install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/chkpnt/erestart         $RPM_BUILD_ROOT%{_sbindir}
 
 # share
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bbot.1    $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bchkpnt.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bhosts.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bjobs.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bkill.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bmgroup.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bmig.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bmod.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bparams.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bpeek.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bqueues.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/brequeue.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/brestart.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bresume.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bstop.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bsub.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/btop.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bugroup.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/busers.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bswitch.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsacct.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lseligible.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsfbase.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/lsfbatch.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsfintro.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lshosts.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsid.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsinfo.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsload.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsloadadj.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsmon.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsplace.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsrcp.1 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man1
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.acct.5  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.events.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.hosts.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.params.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.queues.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.users.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lim.acct.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.acct.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.cluster.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.conf.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.shared.5 $RPM_BUILD_ROOT%{_openlavatop}/share/man/man5
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/badmin.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/brun.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/eauth.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/eexec.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/esub.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/lim.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/lsadmin.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/lsfinstall.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/mbatchd.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/nios.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/pim.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/res.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
-install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/sbatchd.8  $RPM_BUILD_ROOT%{_openlavatop}/share/man/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bbot.1    $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bchkpnt.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bhosts.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bjobs.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bkill.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bmgroup.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bmig.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bmod.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bparams.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bpeek.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bqueues.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/brequeue.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/brestart.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bresume.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bstop.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bsub.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/btop.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bugroup.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/busers.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/bswitch.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsacct.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lseligible.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsfbase.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man1/lsfbatch.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsfintro.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lshosts.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsid.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsinfo.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsload.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsloadadj.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsmon.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsplace.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man1/lsrcp.1 $RPM_BUILD_ROOT%{_mandir}/man1
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.acct.5  $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.events.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.hosts.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.params.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.queues.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man5/lsb.users.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lim.acct.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.acct.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.cluster.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.conf.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man5/lsf.shared.5 $RPM_BUILD_ROOT%{_mandir}/man5
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/badmin.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/brun.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/eauth.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/eexec.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/esub.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/lim.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/lsadmin.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/lsfinstall.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/mbatchd.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/nios.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/pim.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsf/man/man8/res.8  $RPM_BUILD_ROOT%{_mandir}/man8
+install -m 644 $RPM_BUILD_DIR/%{name}-%{version}/lsbatch/man8/sbatchd.8  $RPM_BUILD_ROOT%{_mandir}/man8
 
-ln -sf %{_openlavatop}/bin/bkill  $RPM_BUILD_ROOT%{_openlavatop}/bin/bstop
-ln -sf %{_openlavatop}/bin/bkill  $RPM_BUILD_ROOT%{_openlavatop}/bin/bresume
-ln -sf %{_openlavatop}/bin/bkill  $RPM_BUILD_ROOT%{_openlavatop}/bin/bchkpnt
-ln -sf %{_openlavatop}/bin/bmgroup  $RPM_BUILD_ROOT%{_openlavatop}/bin/bugroup
+ln -sf %{_bindir}/bkill  $RPM_BUILD_ROOT%{_bindir}/bstop
+ln -sf %{_bindir}/bkill  $RPM_BUILD_ROOT%{_bindir}/bresume
+ln -sf %{_bindir}/bkill  $RPM_BUILD_ROOT%{_bindir}/bchkpnt
+ln -sf %{_bindir}/bmgroup  $RPM_BUILD_ROOT%{_bindir}/bugroup
 
 install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.sh $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.csh $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
@@ -290,15 +292,15 @@ exit 0
 %{_sysconfdir}/profile.d/openlava.csh
 %attr(0755,openlava,openlava) %{_sysconfdir}/init.d/openlava
 
-%{_openlavatop}/bin/bstop
-%{_openlavatop}/bin/bresume
-%{_openlavatop}/bin/bchkpnt
-%{_openlavatop}/bin/bugroup
+%{_bindir}/bstop
+%{_bindir}/bresume
+%{_bindir}/bchkpnt
+%{_bindir}/bugroup
 
-%attr(0755,openlava,openlava) %{_openlavatop}/etc/openlava
-%{_openlavatop}/etc/openlava.sh
-%{_openlavatop}/etc/openlava.csh
-%{_openlavatop}/etc/openlava.setup
+%attr(0755,openlava,openlava) %{_etcdir}/openlava
+%{_etcdir}/openlava.sh
+%{_etcdir}/openlava.csh
+%{_etcdir}/openlava.setup
 %{_sbindir}/eauth
 %{_sbindir}/echkpnt
 %{_sbindir}/erestart
@@ -416,32 +418,32 @@ exit 0
 # docs
 %doc COPYING
 
-%defattr(0644,openlava,openlava)
-%config(noreplace) %{_openlavatop}/etc/lsb.params
-%config(noreplace) %{_openlavatop}/etc/lsb.queues
-%config(noreplace) %{_openlavatop}/etc/lsb.hosts
-%config(noreplace) %{_openlavatop}/etc/lsb.users
-%config(noreplace) %{_openlavatop}/etc/lsf.shared
-%config(noreplace) %{_openlavatop}/etc/lsf.conf
-%config(noreplace) %{_openlavatop}/etc/lsf.cluster.%{_clustername}
-%config(noreplace) %{_openlavatop}/etc/lsf.task
+%defattr(0664,openlava,wga)
+%config(noreplace) %{_etcdir}/lsb.params
+%config(noreplace) %{_etcdir}/lsb.queues
+%config(noreplace) %{_etcdir}/lsb.hosts
+%config(noreplace) %{_etcdir}/lsb.users
+%config(noreplace) %{_etcdir}/lsf.shared
+%config(noreplace) %{_etcdir}/lsf.conf
+%config(noreplace) %{_etcdir}/lsf.cluster.%{_clustername}
+%config(noreplace) %{_etcdir}/lsf.task
 %config(noreplace) %{_openlavatop}/README
 %config(noreplace) %{_openlavatop}/COPYING
 
 %attr(0755,openlava,openlava) %dir %{_openlavatop}
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/bin
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/etc
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/include
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/lib
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/log
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/sbin
+%attr(0755,openlava,openlava) %dir %{_bindir}
+%attr(0755,openlava,openlava) %dir %{_etcdir}
+%attr(0755,openlava,openlava) %dir %{_includedir}
+%attr(0755,openlava,openlava) %dir %{_libdir}
+%attr(0755,openlava,openlava) %dir %{_logdir}
+%attr(0755,openlava,openlava) %dir %{_sbindir}
 %attr(0755,openlava,openlava) %dir %{_openlavatop}/share
 %attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man
 %attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man/man1
 %attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man/man5
 %attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man/man8
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/work
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/work/logdir
+%attr(0755,openlava,openlava) %dir %{_workdir}
+%attr(0755,openlava,openlava) %dir %{_workdir}/logdir
 
 %changelog
 * Sun Oct 30 2011 modified the spec file so that autoconf creates
