@@ -22,6 +22,9 @@
 %define version %{major}.%{minor}
 %define _openlavatop /opt/openlava-%{version}
 
+%define _user dexter
+%define _group wga
+
 # quell complaints about missing group ids by not building debug
 # packages
 %define debug_package %{nil}
@@ -263,8 +266,8 @@ install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava $RPM_BUILD_ROOT
 #
 # Add "openlava" user
 #
-/usr/bin/getent group openlava >/dev/null || /usr/sbin/groupadd openlava
-/usr/bin/getent passwd openlava >/dev/null || /usr/sbin/useradd -c "openlava Administrator" -g openlava -m -d /home/openlava openlava 2> /dev/null || :
+/usr/bin/getent group %{_group} >/dev/null || /usr/sbin/groupadd %{_group}
+/usr/bin/getent passwd %{_user} >/dev/null || /usr/sbin/useradd -c "openlava Administrator" -g %{_group} -m %{_user} 2> /dev/null || :
 exit 0
 #
 # POST
@@ -295,18 +298,18 @@ exit 0
 # FILES
 #
 %files
-%defattr(-,openlava,openlava)
+%defattr(-,%{_user},%{_group})
 
 %{_sysconfdir}/profile.d/openlava.sh
 %{_sysconfdir}/profile.d/openlava.csh
-%attr(0755,openlava,openlava) %{_sysconfdir}/init.d/openlava
+%attr(0755,%{_user},%{_group}) %{_sysconfdir}/init.d/openlava
 
 %{_bindir}/bstop
 %{_bindir}/bresume
 %{_bindir}/bchkpnt
 %{_bindir}/bugroup
 
-%attr(0755,openlava,openlava) %{_etcdir}/openlava
+%attr(0755,%{_user},%{_group}) %{_etcdir}/openlava
 %{_etcdir}/openlava.sh
 %{_etcdir}/openlava.csh
 %{_etcdir}/openlava.setup
@@ -430,7 +433,7 @@ exit 0
 # docs
 %doc COPYING
 
-%defattr(0664,openlava,wga)
+%defattr(0664,%{_user},%{_group})
 %config(noreplace) %{_etcdir}/lsb.params
 %config(noreplace) %{_etcdir}/lsb.queues
 %config(noreplace) %{_etcdir}/lsb.hosts
@@ -442,20 +445,20 @@ exit 0
 %config(noreplace) %{_openlavatop}/README
 %config(noreplace) %{_openlavatop}/COPYING
 
-%attr(0755,openlava,openlava) %dir %{_openlavatop}
-%attr(0755,openlava,openlava) %dir %{_bindir}
-%attr(0755,openlava,openlava) %dir %{_etcdir}
-%attr(0755,openlava,openlava) %dir %{_includedir}
-%attr(0755,openlava,openlava) %dir %{_libdir}
-%attr(0755,openlava,openlava) %dir %{_logdir}
-%attr(0755,openlava,openlava) %dir %{_sbindir}
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/share
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man/man1
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man/man5
-%attr(0755,openlava,openlava) %dir %{_openlavatop}/share/man/man8
-%attr(0755,openlava,openlava) %dir %{_workdir}
-%attr(0755,openlava,openlava) %dir %{_workdir}/logdir
+%attr(0755,%{_user},%{_group}) %dir %{_openlavatop}
+%attr(0755,%{_user},%{_group}) %dir %{_bindir}
+%attr(0755,%{_user},%{_group}) %dir %{_etcdir}
+%attr(0755,%{_user},%{_group}) %dir %{_includedir}
+%attr(0755,%{_user},%{_group}) %dir %{_libdir}
+%attr(0755,%{_user},%{_group}) %dir %{_logdir}
+%attr(0755,%{_user},%{_group}) %dir %{_sbindir}
+%attr(0755,%{_user},%{_group}) %dir %{_openlavatop}/share
+%attr(0755,%{_user},%{_group}) %dir %{_openlavatop}/share/man
+%attr(0755,%{_user},%{_group}) %dir %{_openlavatop}/share/man/man1
+%attr(0755,%{_user},%{_group}) %dir %{_openlavatop}/share/man/man5
+%attr(0755,%{_user},%{_group}) %dir %{_openlavatop}/share/man/man8
+%attr(0755,%{_user},%{_group}) %dir %{_workdir}
+%attr(0755,%{_user},%{_group}) %dir %{_workdir}/logdir
 
 %changelog
 * Sun Oct 30 2011 modified the spec file so that autoconf creates
