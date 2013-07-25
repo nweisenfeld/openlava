@@ -19,9 +19,13 @@
 %define major 2
 %define minor 0
 %define release 1
-
 %define version %{major}.%{minor}
 %define _openlavatop /opt/openlava-%{version}
+
+# quell complaints about missing group ids by not building debug
+# packages
+%define debug_package %{nil}
+
 %define _clustername openlava
 %define _libdir %{_openlavatop}/lib
 %define _bindir %{_openlavatop}/bin
@@ -246,7 +250,7 @@ ln -sf %{_bindir}/bkill  $RPM_BUILD_ROOT%{_bindir}/bchkpnt
 ln -sf %{_bindir}/bmgroup  $RPM_BUILD_ROOT%{_bindir}/bugroup
 
 # comprd change to use a shared open-lava directory
-ln -sf %{_etcdirsh} %{_openlavatop}/etc
+ln -sf %{_etcdirsh} $RPM_BUILD_ROOT%{_openlavatop}/etc
 
 install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.sh $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
 install -m 755 $RPM_BUILD_DIR/%{name}-%{version}/config/openlava.csh $RPM_BUILD_ROOT%{_sysconfdir}/profile.d
@@ -419,6 +423,9 @@ exit 0
 # headers
 %{_includedir}/lsbatch.h
 %{_includedir}/lsf.h
+
+# symlinks
+%{_openlavatop}/etc
 
 # docs
 %doc COPYING
